@@ -74,16 +74,16 @@
     "smoked-salmon": {
       "flake": false,
       "locked": {
-        "lastModified": 1792187872,
-        "narHash": "sha256-qm+AJXHWXuz89dhMtpt24BdnlFfajMQBIXZvyFif2Vs=",
+        "lastModified": 1792407089,
+        "narHash": "sha256-Qe9h15FHAp8h6HBvTg5YZKtANsdL/be+Gt2BXiVyGmc=",
         "owner": "smokin-salmon",
         "repo": "smoked-salmon",
-        "rev": "8ee88cb261b5e99e5c9bba0d18e2d032e25c4c9d",
+        "rev": "1ca30d69d38d643aa1f492e4f96cfdd6df9bbad8",
         "type": "github"
       },
       "original": {
         "owner": "smokin-salmon",
-        "ref": "0.19.0",
+        "ref": "0.20.0",
         "repo": "smoked-salmon",
         "type": "github"
       }

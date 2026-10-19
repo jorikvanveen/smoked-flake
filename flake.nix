@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     smoked-salmon = {
-      url = "github:smokin-salmon/smoked-salmon/0.19.0";
+      url = "github:smokin-salmon/smoked-salmon/0.20.0";
       flake = false;
     };
 
