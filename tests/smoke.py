@@ -59,6 +59,25 @@ with tempfile.TemporaryDirectory() as temporary:
     assert "Start the web interface" in run(salmon, "web", "--help")
     assert "Required Dependencies:" in run(salmon, "health")
 
+    # An enclosing Nix shell or user install must not override the locked packages.
+    user_base = root / "external-python"
+    user_site = user_base / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
+    (user_site / "PIL").mkdir(parents=True)
+    (user_site / "PIL/__init__.py").write_text(
+        "raise RuntimeError('salmon loaded Pillow from outside its environment')\n"
+    )
+    for inherited_python in [
+        {"PYTHONPATH": str(user_site)},
+        {"PYTHONHOME": str(root / "missing-python")},
+        {"PYTHONUSERBASE": str(user_base), "PYTHONNOUSERSITE": "0"},
+    ]:
+        result = subprocess.run(
+            [salmon, "--help"], cwd=root, env={**env, **inherited_python},
+            text=True, capture_output=True, timeout=30,
+        )
+        assert result.returncode == 0, result.stderr
+        assert "Commands:" in result.stdout
+
     run("sox", "-n", "tone.wav", "synth", "2", "sine", "440", tool=True)
     run("flac", "--silent", "tone.wav", "-o", "tone.flac", tool=True)
     run("lame", "--silent", "tone.wav", "tone.mp3", tool=True)

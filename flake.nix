@@ -81,6 +81,9 @@
               runHook preInstall
               mkdir -p "$out/bin" "$out/share/smoked-salmon"
               makeWrapper ${venv}/bin/salmon "$out/bin/salmon" \
+                --unset PYTHONPATH \
+                --unset PYTHONHOME \
+                --set PYTHONNOUSERSITE 1 \
                 --prefix PATH : ${lib.makeBinPath runtimeTools}
               cp ${smoked-salmon}/src/salmon/data/config.default.toml \
                 "$out/share/smoked-salmon/config.default.toml"
